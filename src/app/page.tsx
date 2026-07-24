@@ -51,43 +51,46 @@ export default function Showcase() {
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-4xl grid-cols-1 gap-4 px-4 pb-12 sm:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Wand2 className="h-4 w-4" />
-                {t.cardImprovedPromptTitle}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">{t.cardImprovedPromptDesc}</CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <ListChecks className="h-4 w-4" />
-                {t.cardImprovementsTitle}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">{t.cardImprovementsDesc}</CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <HelpCircle className="h-4 w-4" />
-                {t.cardMissingContextTitle}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">{t.cardMissingContextDesc}</CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Lightbulb className="h-4 w-4" />
-                {t.cardTipsTitle}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">{t.cardTipsDesc}</CardContent>
-          </Card>
+        <section className="mx-auto max-w-4xl px-4 pb-12">
+          <h2 className="mb-6 text-center text-2xl font-semibold tracking-tight">{t.featuresTitle}</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Card className="border-border bg-muted/60 shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Wand2 className="h-4 w-4" />
+                  {t.cardImprovedPromptTitle}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">{t.cardImprovedPromptDesc}</CardContent>
+            </Card>
+            <Card className="border-border bg-muted/60 shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <ListChecks className="h-4 w-4" />
+                  {t.cardImprovementsTitle}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">{t.cardImprovementsDesc}</CardContent>
+            </Card>
+            <Card className="border-border bg-muted/60 shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <HelpCircle className="h-4 w-4" />
+                  {t.cardMissingContextTitle}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">{t.cardMissingContextDesc}</CardContent>
+            </Card>
+            <Card className="border-border bg-muted/60 shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Lightbulb className="h-4 w-4" />
+                  {t.cardTipsTitle}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">{t.cardTipsDesc}</CardContent>
+            </Card>
+          </div>
         </section>
 
         <section className="mx-auto max-w-4xl px-4 pb-16">

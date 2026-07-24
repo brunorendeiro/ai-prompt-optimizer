@@ -77,6 +77,7 @@ type UiStrings = {
   strengthsTitle: string;
   evalImprovementsTitle: string;
   evalSectionTitle: string;
+  featuresTitle: string;
   cookieBody: string;
   cookieAccept: string;
   cookieReject: string;
@@ -129,6 +130,7 @@ export const ui: Record<Locale, UiStrings> = {
     strengthsTitle: "Strengths",
     evalImprovementsTitle: "Improvements to Make",
     evalSectionTitle: "Also included: AI Response Evaluator",
+    featuresTitle: "What you get",
     cookieBody: "I use Google Analytics to understand how many people visit this app. Do you accept analytics cookies?",
     cookieAccept: "Accept",
     cookieReject: "Reject",
@@ -179,6 +181,7 @@ export const ui: Record<Locale, UiStrings> = {
     strengthsTitle: "Pontos Fortes",
     evalImprovementsTitle: "Pontos a Melhorar",
     evalSectionTitle: "Também incluído: Avaliador de Respostas de IA",
+    featuresTitle: "O que recebes",
     cookieBody: "Uso o Google Analytics para perceber quantas pessoas visitam esta app. Aceitas cookies de análise?",
     cookieAccept: "Aceitar",
     cookieReject: "Rejeitar",
@@ -229,6 +232,7 @@ export const ui: Record<Locale, UiStrings> = {
     strengthsTitle: "Stärken",
     evalImprovementsTitle: "Verbesserungspunkte",
     evalSectionTitle: "Ebenfalls enthalten: AI Response Evaluator",
+    featuresTitle: "Das bekommst du",
     cookieBody: "Ich nutze Google Analytics, um zu verstehen, wie viele Personen diese App besuchen. Akzeptierst du Analyse-Cookies?",
     cookieAccept: "Akzeptieren",
     cookieReject: "Ablehnen",
