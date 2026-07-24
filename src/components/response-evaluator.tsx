@@ -75,7 +75,7 @@ export function ResponseEvaluator({ locale }: { locale: Locale }) {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-10">
       <div className="flex flex-col gap-2 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">AI Prompt Optimizer</h1>
+        <h1 className="font-heading text-4xl tracking-tight">AI Prompt Optimizer</h1>
         <p className="text-muted-foreground">{t.evalSubtitle}</p>
       </div>
 
@@ -144,21 +144,21 @@ export function ResponseEvaluator({ locale }: { locale: Locale }) {
         <>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
             {data.usage.costUsd != null && (
-              <Badge variant="secondary" className="gap-1.5">
+              <Badge variant="secondary" className="gap-1.5 font-mono">
                 <DollarSign className="h-3 w-3" />
                 ${data.usage.costUsd.toFixed(4)} {t.thisCall}
               </Badge>
             )}
-            <Badge variant="secondary" className="gap-1.5">
+            <Badge variant="secondary" className="gap-1.5 font-mono">
               <Hash className="h-3 w-3" />
               {t.tokens(data.usage.totalTokens, data.usage.promptTokens, data.usage.completionTokens)}
             </Badge>
-            <Badge variant="secondary" className="gap-1.5">
+            <Badge variant="secondary" className="gap-1.5 font-mono">
               <Gauge className="h-3 w-3" />
               {(data.elapsedMs / 1000).toFixed(1)}s
             </Badge>
             {data.budget?.remaining != null && (
-              <Badge variant="secondary" className="gap-1.5">
+              <Badge variant="secondary" className="gap-1.5 font-mono">
                 <Coins className="h-3 w-3" />
                 {t.left(`$${data.budget.remaining.toFixed(2)}`, data.budget.limit != null ? `$${data.budget.limit.toFixed(2)}` : null)}
               </Badge>
@@ -167,9 +167,9 @@ export function ResponseEvaluator({ locale }: { locale: Locale }) {
 
           <Card>
             <CardContent className="flex flex-col items-center gap-1 pt-6 pb-5">
-              <span className="text-sm text-muted-foreground">{t.scoreLabel}</span>
-              <span className={`text-5xl font-semibold tracking-tight ${scoreColor}`}>{data.result.score}</span>
-              <span className="text-xs text-muted-foreground">/ 100</span>
+              <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">{t.scoreLabel}</span>
+              <span className={`font-heading text-7xl tracking-tight ${scoreColor}`}>{data.result.score}</span>
+              <span className="font-mono text-xs text-muted-foreground">/ 100</span>
             </CardContent>
           </Card>
 

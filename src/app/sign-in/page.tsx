@@ -18,7 +18,7 @@ function SignInContent() {
       <div className="absolute top-4 right-4">
         <LocaleSwitcher locale={locale} setLocale={setLocale} />
       </div>
-      <div className="flex items-center gap-2 text-2xl font-semibold">
+      <div className="font-heading flex items-center gap-2 text-3xl">
         <Sparkles className="h-6 w-6 text-primary" />
         AI Prompt Optimizer
       </div>

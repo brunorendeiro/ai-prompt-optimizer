@@ -20,7 +20,7 @@ export default function AppPage() {
   return (
     <>
       <header className="flex items-center justify-between border-b px-4 py-3">
-        <a href="/" className="text-sm font-medium">
+        <a href="/" className="font-heading text-lg">
           AI Prompt Optimizer
         </a>
         <div className="flex items-center gap-3">
@@ -40,7 +40,7 @@ export default function AppPage() {
             onClick={() => setTab("optimize")}
             className={cn(
               "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-              tab === "optimize" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground",
+              tab === "optimize" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
             )}
           >
             {t.tabOptimize}
@@ -50,7 +50,7 @@ export default function AppPage() {
             onClick={() => setTab("evaluate")}
             className={cn(
               "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-              tab === "evaluate" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground",
+              tab === "evaluate" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
             )}
           >
             {t.tabEvaluate}

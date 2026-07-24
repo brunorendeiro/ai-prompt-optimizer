@@ -15,7 +15,7 @@ export default function Showcase() {
   return (
     <>
       <header className="flex items-center justify-between border-b px-4 py-3">
-        <span className="text-sm font-medium">AI Prompt Optimizer</span>
+        <span className="font-heading text-lg">AI Prompt Optimizer</span>
         <div className="flex items-center gap-3">
           <LocaleSwitcher locale={locale} setLocale={setLocale} />
           <a href="/sign-in" className={cn(buttonVariants({ size: "sm" }))}>
@@ -26,7 +26,7 @@ export default function Showcase() {
 
       <main className="flex-1">
         <section className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-4 py-16 text-center">
-          <h1 className="text-4xl font-semibold tracking-tight">{t.heroTitle}</h1>
+          <h1 className="font-heading text-6xl tracking-tight">{t.heroTitle}</h1>
           <p className="max-w-xl text-lg text-muted-foreground">{t.heroSubtitle}</p>
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
             <a href="/sign-in" className={cn(buttonVariants({ size: "lg" }))}>
@@ -52,7 +52,7 @@ export default function Showcase() {
         </section>
 
         <section className="mx-auto max-w-4xl px-4 pb-12">
-          <h2 className="mb-6 text-center text-2xl font-semibold tracking-tight">{t.featuresTitle}</h2>
+          <h2 className="font-heading mb-6 text-center text-3xl tracking-tight">{t.featuresTitle}</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Card className="border-border bg-muted/60 shadow-sm">
               <CardHeader>
@@ -110,7 +110,7 @@ export default function Showcase() {
         </section>
 
         <section className="mx-auto max-w-4xl px-4 pb-16">
-          <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight">{t.evalSectionTitle}</h2>
+          <h2 className="font-heading mb-4 text-center text-3xl tracking-tight">{t.evalSectionTitle}</h2>
           <p className="mx-auto mb-6 max-w-xl text-center text-muted-foreground">{t.evalSubtitle}</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="overflow-hidden rounded-xl border">
