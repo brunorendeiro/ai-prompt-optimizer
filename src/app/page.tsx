@@ -1,44 +1,51 @@
+"use client";
+
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Wand2, ListChecks, HelpCircle, Lightbulb, Lock, Gauge } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLocale, ui } from "@/lib/i18n";
 
 export default function Showcase() {
+  const { locale, setLocale } = useLocale();
+  const t = ui[locale];
+
   return (
     <>
       <header className="flex items-center justify-between border-b px-4 py-3">
         <span className="text-sm font-medium">AI Prompt Optimizer</span>
-        <a href="/sign-in" className={cn(buttonVariants({ size: "sm" }))}>
-          Sign in with Google
-        </a>
+        <div className="flex items-center gap-3">
+          <LocaleSwitcher locale={locale} setLocale={setLocale} />
+          <a href="/sign-in" className={cn(buttonVariants({ size: "sm" }))}>
+            {t.signIn}
+          </a>
+        </div>
       </header>
 
       <main className="flex-1">
         <section className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-4 py-16 text-center">
-          <h1 className="text-4xl font-semibold tracking-tight">AI Prompt Optimizer</h1>
-          <p className="max-w-xl text-lg text-muted-foreground">
-            Paste a rough prompt. Get back a clearer, professional, ready-to-use version — plus what
-            changed, what was missing, and how to write better prompts next time.
-          </p>
+          <h1 className="text-4xl font-semibold tracking-tight">{t.heroTitle}</h1>
+          <p className="max-w-xl text-lg text-muted-foreground">{t.heroSubtitle}</p>
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
             <a href="/sign-in" className={cn(buttonVariants({ size: "lg" }))}>
-              Sign in with Google
+              {t.signIn}
             </a>
           </div>
           <p className="flex items-center gap-1.5 pt-1 text-xs text-muted-foreground">
             <Lock className="h-3.5 w-3.5" />
-            Private app — access limited to authorized accounts.
+            {t.privateNote}
           </p>
         </section>
 
         <section className="mx-auto max-w-4xl px-4 pb-12">
           <div className="overflow-hidden rounded-xl border">
             <Image
-              src="/demo-prompt.jpg"
-              alt="AI Prompt Optimizer: a rough prompt turned into a clear, professional one, with token usage, response time and remaining budget shown above the result"
-              width={1568}
-              height={691}
+              src="/demo-prompt.png"
+              alt="AI Prompt Optimizer: a rough prompt turned into a clear, professional one, with cost, token usage, response time and remaining budget shown above the result"
+              width={1176}
+              height={1023}
               className="w-full"
             />
           </div>
@@ -49,62 +56,79 @@ export default function Showcase() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <Wand2 className="h-4 w-4" />
-                Improved Prompt
+                {t.cardImprovedPromptTitle}
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              A rewritten, professional version of your prompt, ready to copy and paste anywhere.
-            </CardContent>
+            <CardContent className="text-sm text-muted-foreground">{t.cardImprovedPromptDesc}</CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <ListChecks className="h-4 w-4" />
-                Improvements
+                {t.cardImprovementsTitle}
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              A plain-English list of exactly what changed and why, so you learn as you go.
-            </CardContent>
+            <CardContent className="text-sm text-muted-foreground">{t.cardImprovementsDesc}</CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <HelpCircle className="h-4 w-4" />
-                Missing Context
+                {t.cardMissingContextTitle}
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              The ambiguities and gaps in your original prompt that were worth flagging.
-            </CardContent>
+            <CardContent className="text-sm text-muted-foreground">{t.cardMissingContextDesc}</CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <Lightbulb className="h-4 w-4" />
-                Tips
+                {t.cardTipsTitle}
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              General pointers for writing sharper prompts, tailored to your specific case.
-            </CardContent>
+            <CardContent className="text-sm text-muted-foreground">{t.cardTipsDesc}</CardContent>
           </Card>
         </section>
 
         <section className="mx-auto max-w-4xl px-4 pb-16">
           <div className="overflow-hidden rounded-xl border">
             <Image
-              src="/demo-results.jpg"
+              src="/demo-results.png"
               alt="The four result cards: Improved Prompt, Improvements, Missing Context and Tips"
-              width={1568}
-              height={691}
+              width={1206}
+              height={980}
               className="w-full"
             />
           </div>
           <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
             <Gauge className="h-3.5 w-3.5" />
-            Choose between Gemini, GPT and Claude models via OpenRouter — with live token count, response time and remaining budget.
+            {t.modelsCaption}
           </p>
+        </section>
+
+        <section className="mx-auto max-w-4xl px-4 pb-16">
+          <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight">{t.evalSectionTitle}</h2>
+          <p className="mx-auto mb-6 max-w-xl text-center text-muted-foreground">{t.evalSubtitle}</p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="overflow-hidden rounded-xl border">
+              <Image
+                src="/demo-eval-form.png"
+                alt="AI Response Evaluator: paste the original prompt and the AI's response to get a critical evaluation"
+                width={1352}
+                height={896}
+                className="w-full"
+              />
+            </div>
+            <div className="overflow-hidden rounded-xl border">
+              <Image
+                src="/demo-eval-score.png"
+                alt="Evaluation result: a 0-100 score plus instruction compliance, clarity, completeness and relevance breakdowns"
+                width={1456}
+                height={825}
+                className="w-full"
+              />
+            </div>
+          </div>
         </section>
       </main>
 

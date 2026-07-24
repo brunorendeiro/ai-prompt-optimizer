@@ -1,9 +1,21 @@
-import { verifySession } from "@/lib/dal";
-import { SignOutButton } from "@/components/sign-out-button";
-import { Optimizer } from "@/components/optimizer";
+"use client";
 
-export default async function AppPage() {
-  const session = await verifySession();
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { SignOutButton } from "@/components/sign-out-button";
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Optimizer } from "@/components/optimizer";
+import { ResponseEvaluator } from "@/components/response-evaluator";
+import { useLocale, ui } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
+
+type Tab = "optimize" | "evaluate";
+
+export default function AppPage() {
+  const { data: session } = useSession();
+  const { locale, setLocale } = useLocale();
+  const t = ui[locale];
+  const [tab, setTab] = useState<Tab>("optimize");
 
   return (
     <>
@@ -12,16 +24,42 @@ export default async function AppPage() {
           AI Prompt Optimizer
         </a>
         <div className="flex items-center gap-3">
+          <LocaleSwitcher locale={locale} setLocale={setLocale} />
           <a href="/admin" className="text-sm text-muted-foreground hover:text-foreground">
-            Admin
+            {t.admin}
           </a>
           <span className="hidden text-sm text-muted-foreground sm:inline">{session?.user?.email}</span>
-          <SignOutButton />
+          <SignOutButton label={t.signOut} />
         </div>
       </header>
 
+      <div className="flex justify-center border-b px-4 pt-4">
+        <div className="flex gap-1 rounded-lg border p-1">
+          <button
+            type="button"
+            onClick={() => setTab("optimize")}
+            className={cn(
+              "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              tab === "optimize" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {t.tabOptimize}
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("evaluate")}
+            className={cn(
+              "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              tab === "evaluate" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {t.tabEvaluate}
+          </button>
+        </div>
+      </div>
+
       <main className="flex-1">
-        <Optimizer />
+        {tab === "optimize" ? <Optimizer locale={locale} /> : <ResponseEvaluator locale={locale} />}
       </main>
 
       <footer className="flex flex-col items-center gap-1 border-t px-4 py-6 text-sm text-muted-foreground">

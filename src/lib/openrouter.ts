@@ -1,9 +1,9 @@
-import { optimizeResultSchema, type OptimizeResult } from "./schema";
+import { optimizeResultSchema, evaluateResultSchema, type OptimizeResult, type EvaluateResult } from "./schema";
 import type { ModelId } from "./models";
 
 const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 
-const SYSTEM_PROMPT = `You are an expert prompt engineer. Given a user's draft prompt for an LLM, rewrite it into a clear, professional, ready-to-use prompt.
+const OPTIMIZE_SYSTEM_PROMPT = `You are an expert prompt engineer. Given a user's draft prompt for an LLM, rewrite it into a clear, professional, ready-to-use prompt.
 
 Respond with ONLY a JSON object matching this exact shape, no markdown fences, no extra text:
 {
@@ -11,6 +11,20 @@ Respond with ONLY a JSON object matching this exact shape, no markdown fences, n
   "improvements": string[],   // concrete changes you made and why
   "missingContext": string[], // ambiguities or missing context in the original prompt
   "tips": string[]            // general tips for writing better prompts, relevant to this case
+}`;
+
+const EVALUATE_SYSTEM_PROMPT = `You are an expert AI response evaluator. Given the original prompt and the response a model produced for it, evaluate the response critically and fairly.
+
+Respond with ONLY a JSON object matching this exact shape, no markdown fences, no extra text:
+{
+  "score": number,                  // overall quality score from 0 to 100
+  "instructionCompliance": string,  // how well the response followed the prompt's instructions
+  "clarity": string,                // how clear and well-structured the response is
+  "completeness": string,           // whether the response fully addresses the prompt, and what's missing if not
+  "relevance": string,              // how relevant the response is to what was actually asked
+  "hallucinations": string,         // any fabricated, unsupported, or inaccurate claims found, or "None detected"
+  "strengths": string[],            // what the response did well
+  "improvements": string[]          // concrete ways the response could be improved
 }`;
 
 function authHeaders() {
@@ -24,13 +38,9 @@ function authHeaders() {
   };
 }
 
-export async function optimizePrompt(
-  prompt: string,
-  model: ModelId,
-): Promise<{
-  result: OptimizeResult;
-  usage: { promptTokens: number; completionTokens: number; totalTokens: number; costUsd: number | null };
-}> {
+type Usage = { promptTokens: number; completionTokens: number; totalTokens: number; costUsd: number | null };
+
+async function callOpenRouter(model: ModelId, systemPrompt: string, userContent: string) {
   const res = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
     method: "POST",
     headers: authHeaders(),
@@ -38,8 +48,8 @@ export async function optimizePrompt(
       model,
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: prompt },
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userContent },
       ],
     }),
   });
@@ -60,18 +70,35 @@ export async function optimizePrompt(
     throw new Error("Model did not return valid JSON");
   }
 
-  const result = optimizeResultSchema.parse(parsedJson);
-
-  const usage = data?.usage ?? {};
-  return {
-    result,
-    usage: {
-      promptTokens: usage.prompt_tokens ?? 0,
-      completionTokens: usage.completion_tokens ?? 0,
-      totalTokens: usage.total_tokens ?? 0,
-      costUsd: typeof usage.cost === "number" ? usage.cost : null,
-    },
+  const usageRaw = data?.usage ?? {};
+  const usage: Usage = {
+    promptTokens: usageRaw.prompt_tokens ?? 0,
+    completionTokens: usageRaw.completion_tokens ?? 0,
+    totalTokens: usageRaw.total_tokens ?? 0,
+    costUsd: typeof usageRaw.cost === "number" ? usageRaw.cost : null,
   };
+
+  return { parsedJson, usage };
+}
+
+export async function optimizePrompt(
+  prompt: string,
+  model: ModelId,
+): Promise<{ result: OptimizeResult; usage: Usage }> {
+  const { parsedJson, usage } = await callOpenRouter(model, OPTIMIZE_SYSTEM_PROMPT, prompt);
+  const result = optimizeResultSchema.parse(parsedJson);
+  return { result, usage };
+}
+
+export async function evaluateResponse(
+  prompt: string,
+  response: string,
+  model: ModelId,
+): Promise<{ result: EvaluateResult; usage: Usage }> {
+  const userContent = `Original prompt:\n${prompt}\n\nResponse to evaluate:\n${response}`;
+  const { parsedJson, usage } = await callOpenRouter(model, EVALUATE_SYSTEM_PROMPT, userContent);
+  const result = evaluateResultSchema.parse(parsedJson);
+  return { result, usage };
 }
 
 export async function getKeyBudget(): Promise<{ limit: number | null; remaining: number | null } | null> {
