@@ -23,6 +23,7 @@ import {
   Gauge,
   Coins,
   Hash,
+  DollarSign,
 } from "lucide-react";
 import { MODELS, DEFAULT_MODEL, type ModelId } from "@/lib/models";
 import type { OptimizeResponse } from "@/lib/schema";
@@ -116,6 +117,12 @@ export function Optimizer() {
       {data && (
         <>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+            {data.usage.costUsd != null && (
+              <Badge variant="secondary" className="gap-1.5">
+                <DollarSign className="h-3 w-3" />
+                ${data.usage.costUsd.toFixed(4)} this call
+              </Badge>
+            )}
             <Badge variant="secondary" className="gap-1.5">
               <Hash className="h-3 w-3" />
               {data.usage.totalTokens} tokens ({data.usage.promptTokens} in / {data.usage.completionTokens} out)

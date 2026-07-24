@@ -37,6 +37,7 @@ export async function POST(request: Request) {
         promptTokens: usage.promptTokens,
         completionTokens: usage.completionTokens,
         totalTokens: usage.totalTokens,
+        costUsd: usage.costUsd,
       },
       elapsedMs,
       budget,

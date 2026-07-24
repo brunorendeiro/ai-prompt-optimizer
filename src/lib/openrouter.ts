@@ -27,7 +27,10 @@ function authHeaders() {
 export async function optimizePrompt(
   prompt: string,
   model: ModelId,
-): Promise<{ result: OptimizeResult; usage: { promptTokens: number; completionTokens: number; totalTokens: number } }> {
+): Promise<{
+  result: OptimizeResult;
+  usage: { promptTokens: number; completionTokens: number; totalTokens: number; costUsd: number | null };
+}> {
   const res = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
     method: "POST",
     headers: authHeaders(),
@@ -66,6 +69,7 @@ export async function optimizePrompt(
       promptTokens: usage.prompt_tokens ?? 0,
       completionTokens: usage.completion_tokens ?? 0,
       totalTokens: usage.total_tokens ?? 0,
+      costUsd: typeof usage.cost === "number" ? usage.cost : null,
     },
   };
 }

@@ -23,6 +23,7 @@ export const optimizeResponseSchema = z.object({
     promptTokens: z.number(),
     completionTokens: z.number(),
     totalTokens: z.number(),
+    costUsd: z.number().nullable(),
   }),
   elapsedMs: z.number(),
   budget: z

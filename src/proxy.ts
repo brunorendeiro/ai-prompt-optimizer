@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 
+const PUBLIC_PATHS = new Set(["/"]);
+const PUBLIC_FILE = /\.(jpg|jpeg|png|svg|webp|ico)$/;
+
 export default auth((req) => {
+  const path = req.nextUrl.pathname;
+  if (PUBLIC_PATHS.has(path) || PUBLIC_FILE.test(path)) {
+    return NextResponse.next();
+  }
+
   if (req.auth) return NextResponse.next();
 
-  if (req.nextUrl.pathname.startsWith("/api/")) {
+  if (path.startsWith("/api/")) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
