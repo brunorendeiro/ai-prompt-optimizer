@@ -67,9 +67,9 @@ export function ResponseEvaluator({ locale }: { locale: Locale }) {
 
   const scoreColor =
     data && data.result.score >= 80
-      ? "text-green-500"
+      ? "text-green-600"
       : data && data.result.score >= 50
-        ? "text-yellow-500"
+        ? "text-amber-600"
         : "text-destructive";
 
   return (
@@ -165,13 +165,13 @@ export function ResponseEvaluator({ locale }: { locale: Locale }) {
             )}
           </div>
 
-          <Card>
-            <CardContent className="flex flex-col items-center gap-1 pt-6 pb-5">
-              <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">{t.scoreLabel}</span>
-              <span className={`font-heading text-7xl tracking-tight ${scoreColor}`}>{data.result.score}</span>
-              <span className="font-mono text-xs text-muted-foreground">/ 100</span>
-            </CardContent>
-          </Card>
+          <div className="flex flex-col items-center gap-2 py-4">
+            <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">{t.scoreLabel}</span>
+            <div className={`grade-circle ${scoreColor}`}>
+              <span className="font-heading text-5xl leading-none">{data.result.score}</span>
+            </div>
+            <span className="font-mono text-xs text-muted-foreground">/ 100</span>
+          </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <DimensionCard icon={<Target className="h-4 w-4" />} title={t.instructionComplianceTitle} text={data.result.instructionCompliance} />

@@ -26,7 +26,9 @@ export default function Showcase() {
 
       <main className="flex-1">
         <section className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-4 py-16 text-center">
-          <h1 className="font-heading text-6xl tracking-tight">{t.heroTitle}</h1>
+          <h1 className="font-heading text-6xl tracking-tight">
+            <span className="marker-underline">{t.heroTitle}</span>
+          </h1>
           <p className="max-w-xl text-lg text-muted-foreground">{t.heroSubtitle}</p>
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
             <a href="/sign-in" className={cn(buttonVariants({ size: "lg" }))}>
@@ -44,8 +46,8 @@ export default function Showcase() {
             <Image
               src="/demo-prompt.png"
               alt="AI Prompt Optimizer: a rough prompt turned into a clear, professional one, with cost, token usage, response time and remaining budget shown above the result"
-              width={1176}
-              height={1023}
+              width={1112}
+              height={1092}
               className="w-full"
             />
           </div>
@@ -98,8 +100,8 @@ export default function Showcase() {
             <Image
               src="/demo-results.png"
               alt="The four result cards: Improved Prompt, Improvements, Missing Context and Tips"
-              width={1206}
-              height={980}
+              width={1148}
+              height={1048}
               className="w-full"
             />
           </div>
@@ -117,8 +119,8 @@ export default function Showcase() {
               <Image
                 src="/demo-eval-form.png"
                 alt="AI Response Evaluator: paste the original prompt and the AI's response to get a critical evaluation"
-                width={1352}
-                height={896}
+                width={1568}
+                height={638}
                 className="w-full"
               />
             </div>
@@ -126,8 +128,8 @@ export default function Showcase() {
               <Image
                 src="/demo-eval-score.png"
                 alt="Evaluation result: a 0-100 score plus instruction compliance, clarity, completeness and relevance breakdowns"
-                width={1456}
-                height={825}
+                width={1316}
+                height={909}
                 className="w-full"
               />
             </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
+import { Geist, Kalam, Courier_Prime } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { CookieConsent } from "@/components/cookie-consent";
 import "./globals.css";
@@ -9,16 +9,15 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
+const kalam = Kalam({
   variable: "--font-heading",
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
-const plexMono = IBM_Plex_Mono({
+const courierPrime = Courier_Prime({
   variable: "--font-plex-mono",
-  weight: ["400", "500"],
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -35,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${instrumentSerif.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${kalam.variable} ${courierPrime.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
