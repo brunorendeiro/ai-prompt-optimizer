@@ -1,6 +1,6 @@
 "use client";
 
-const MEASUREMENT_ID = "G-8PWRSD62T";
+const MEASUREMENT_ID = "G-8PWRSDS62T";
 const STORAGE_KEY = "ai-prompt-optimizer-analytics-consent";
 
 export type Consent = "granted" | "denied";
