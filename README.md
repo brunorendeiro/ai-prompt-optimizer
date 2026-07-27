@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Nota técnica — Google Analytics
+
+O Analytics só é carregado depois de o utilizador aceitar os cookies. A função
+`gtag` deve enviar o objeto nativo `arguments` para `dataLayer`:
+
+```js
+function gtag() {
+  dataLayer.push(arguments)
+}
+```
+
+Não substituir por `dataLayer.push(args)` com um rest parameter (`...args`):
+apesar de o script da Google carregar, o comando `config` e o `page_view` podem
+não ser processados.

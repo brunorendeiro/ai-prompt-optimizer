@@ -26,9 +26,11 @@ export function loadAnalytics() {
 
   const w = window as unknown as { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void };
   w.dataLayer = w.dataLayer || [];
-  w.gtag = function gtag(...args: unknown[]) {
-    w.dataLayer!.push(args);
-  };
+  w.gtag = function gtag() {
+    // gtag.js expects the native Arguments object, not a rest-parameter array.
+    // eslint-disable-next-line prefer-rest-params
+    w.dataLayer!.push(arguments);
+  } as (...args: unknown[]) => void;
   w.gtag("js", new Date());
   w.gtag("config", MEASUREMENT_ID);
 }
