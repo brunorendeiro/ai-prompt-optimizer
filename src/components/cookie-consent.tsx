@@ -33,8 +33,8 @@ export function CookieConsent() {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 flex flex-col items-center justify-between gap-3 border-t bg-background/95 px-4 py-3 backdrop-blur sm:flex-row">
-      <p className="text-sm text-muted-foreground">{t.cookieBody}</p>
+    <div className="fixed inset-x-2 bottom-2 z-50 mx-auto flex w-auto max-w-3xl flex-col items-stretch justify-between gap-2 rounded-lg border bg-background/95 px-3 py-2 shadow-lg backdrop-blur sm:inset-x-4 sm:bottom-4 sm:flex-row sm:items-center sm:gap-3 sm:px-4 sm:py-3">
+      <p className="text-xs leading-5 text-muted-foreground sm:text-sm">{t.cookieBody}</p>
       <div className="flex shrink-0 gap-2">
         <Button variant="outline" size="sm" onClick={handleReject}>
           {t.cookieReject}
