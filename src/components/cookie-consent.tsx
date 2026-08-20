@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { getStoredConsent, setConsent, loadAnalytics } from "@/lib/analytics";
+import { getStoredConsent, setConsent, loadAnalytics, loadAds } from "@/lib/analytics";
 import { useLocale, ui } from "@/lib/i18n";
 
 export function CookieConsent() {
@@ -14,6 +14,7 @@ export function CookieConsent() {
     const stored = getStoredConsent();
     if (stored === "granted") {
       loadAnalytics();
+      loadAds();
     } else if (stored === null) {
       setVisible(true);
     }
@@ -24,6 +25,7 @@ export function CookieConsent() {
   function handleAccept() {
     setConsent("granted");
     loadAnalytics();
+    loadAds();
     setVisible(false);
   }
 
