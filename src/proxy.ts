@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 
-const PUBLIC_PATHS = new Set(["/"]);
+const PUBLIC_PATHS = new Set(["/", "/ads.txt"]);
 const PUBLIC_FILE = /\.(jpg|jpeg|png|svg|webp|ico)$/;
 
 export default auth((req) => {
