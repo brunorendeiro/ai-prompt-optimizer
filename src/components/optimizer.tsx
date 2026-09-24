@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { AdSlot } from "@/components/ad-slot";
 import {
   Loader2,
   Wand2,
@@ -171,6 +172,8 @@ export function Optimizer({ locale }: { locale: Locale }) {
               className="md:col-span-2"
             />
           </div>
+
+          <AdSlot locale={locale} />
         </>
       )}
     </div>

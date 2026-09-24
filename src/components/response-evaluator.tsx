@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { AdSlot } from "@/components/ad-slot";
 import {
   Loader2,
   ClipboardCheck,
@@ -190,6 +191,8 @@ export function ResponseEvaluator({ locale }: { locale: Locale }) {
             <ListCard icon={<ThumbsUp className="h-4 w-4" />} title={t.strengthsTitle} items={data.result.strengths} emptyText={t.nothingToReport} />
             <ListCard icon={<Wrench className="h-4 w-4" />} title={t.evalImprovementsTitle} items={data.result.improvements} emptyText={t.nothingToReport} />
           </div>
+
+          <AdSlot locale={locale} />
         </>
       )}
     </div>

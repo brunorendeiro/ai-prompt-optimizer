@@ -48,6 +48,10 @@ export function loadAds() {
   script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`;
   document.head.appendChild(script);
 
-  const adsbygoogle = ((w.adsbygoogle as unknown[]) = (w.adsbygoogle as unknown[]) || []);
-  adsbygoogle.push({ google_ad_client: AD_CLIENT, enable_page_level_ads: true });
+  // No enable_page_level_ads: auto ads let Google place ads on any screen,
+  // including interactive tool screens with almost no text, which is what
+  // triggered the original AdSense "low value content" policy violation.
+  // We only use manual ad units (see ad-slot.tsx), placed exclusively on
+  // screens with substantial real textual content.
+  ((w.adsbygoogle as unknown[]) = (w.adsbygoogle as unknown[]) || []);
 }
